@@ -30,6 +30,11 @@ export const getSubscribedCreatorsThunk = createAsyncThunk(
       const { data } = await api.getSubscribedCreators(userId);
       return data.subscribedTo;
     } catch (error) {
+       console.error("[DEBUG] getSubscribedCreatorsThunk Failed:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        url: error.config?.url
+      });
       return rejectWithValue(
         error.response?.data || "Failed to fetch subscribed creators"
       );
@@ -51,6 +56,11 @@ export const fetchCreatorById = createAsyncThunk(
         subscriberCount: data.subscriberCount,
       };
     } catch (error) {
+       console.error("[DEBUG] fetchCreatorById Failed:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        url: error.config?.url
+      });
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch creator"
       );
@@ -67,6 +77,11 @@ export const fetchCreators = createAsyncThunk(
       console.log("data res fetchCreators", data.creators);
       return data.creators;
     } catch (error) {
+      console.error("[DEBUG] fetchCreators Failed:", {
+        status: error.response?.status,
+        data: error.response?.data,
+        url: error.config?.url
+      });
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch creators"
       );
