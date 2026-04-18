@@ -54,77 +54,85 @@ function Header({ toggleSidebar }) {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-[#0f1e29] via-[#142f44] to-[#0f1e29] p-2 text-gray-100 fixed top-0 z-50 w-full shadow-md">
-        <div className="max-w-7xl px-2 sm:px-4 flex items-center justify-between">
+      <header className="bg-[#0f172a]/80 backdrop-blur-xl border-b border-white/10 p-2 text-gray-100 fixed top-0 z-50 w-full shadow-2xl">
+        <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-14 sm:h-16">
           {/* Menu + Logo */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* Large screen menu icon */}
             <button
               onClick={toggleSidebar}
               aria-label="Toggle sidebar"
-              className="hidden lg:flex p-2 rounded-full hover:bg-gray-700 hover:text-amber-400 transition-all duration-200 focus:ring-2 focus:ring-amber-400 focus:outline-none"
+              className="hidden lg:flex p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-orange-500 transition-all duration-300 border border-white/5 group"
             >
-              <FaBars className="text-xl lg:text-2xl" />
+              <FaBars className="text-xl group-hover:rotate-180 transition-transform duration-500" />
             </button>
 
             <motion.div
-              initial={{ opacity: 0, x: -10 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.5, type: "spring" }}
+              className="flex items-center"
             >
-              <h1 className="text-2xl sm:text-4xl font-black uppercase bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 bg-clip-text text-transparent drop-shadow-[0_0_18px_#facc15] tracking-wider">
-                Nexora
-              </h1>
+              <Link to="/" className="flex items-center group">
+                <span className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tighter text-white">
+                  My
+                </span>
+                <span className="ml-1 px-1.5 py-0.5 bg-gradient-to-br from-orange-400 to-orange-600 text-slate-900 text-lg sm:text-xl lg:text-2xl font-black rounded-lg shadow-[0_0_20px_rgba(249,115,22,0.4)] group-hover:shadow-[0_0_30px_rgba(249,115,22,0.6)] transition-all duration-300">
+                  HUB
+                </span>
+              </Link>
             </motion.div>
           </div>
 
           {/* Desktop Search Bar */}
-          <div className="hidden sm:flex flex-1 mx-2 sm:mx-4 max-w-2xl">
+          <div className="hidden sm:flex flex-1 mx-6 lg:mx-12 max-w-3xl">
             <form
               onSubmit={handleSearch}
-              className="flex rounded-md overflow-hidden border border-gray-700 bg-gray-800 w-full"
+              className="flex rounded-2xl overflow-hidden border border-white/10 bg-white/5 w-full focus-within:border-orange-500/50 focus-within:bg-white/10 transition-all duration-300 group shadow-inner"
             >
               <input
                 type="text"
                 value={searchTerm}
                 onChange={handleInputChange}
-                placeholder="Search videos by title, tags or category..."
-                className="flex-1 px-4 py-2 bg-transparent text-gray-100 placeholder-gray-400 focus:outline-none"
+                placeholder="Search premium videos..."
+                className="flex-1 px-5 py-2.5 bg-transparent text-gray-100 placeholder-gray-500 focus:outline-none text-sm font-medium"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 text-gray-900 font-semibold px-4 py-2 transition-all duration-300 hover:scale-[1.05] hover:brightness-110"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold px-6 py-2.5 transition-all duration-300 flex items-center shadow-lg"
               >
-                <FaSearch className="w-5 h-5" />
+                <FaSearch className="w-4 h-4" />
               </button>
             </form>
           </div>
 
           {/* Mobile Icons (Search + User) */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 sm:gap-4">
             {/* Mobile search icon */}
             <button
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-              className="sm:hidden p-2 rounded-full hover:bg-gray-700 hover:text-amber-400 transition-all duration-200 focus:ring-2 focus:ring-amber-400 focus:outline-none"
+              className="sm:hidden p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-orange-500 transition-all duration-300"
             >
-              <FaSearch className="w-6 h-6 text-gray-200" />
+              <FaSearch className="w-5 h-5" />
             </button>
 
             {/* User Menu */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="flex items-center justify-center rounded-full p-1 sm:p-2 hover:bg-gray-700 hover:text-amber-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                className="flex items-center justify-center rounded-2xl p-0.5 sm:p-1 hover:ring-2 hover:ring-orange-500/50 transition-all duration-300"
               >
                 {currentUser?.profileImage ? (
                   <img
                     src={currentUser.profileImage}
                     alt={currentUser.name}
-                    className="h-8 w-8 rounded-full object-cover"
+                    className="h-9 w-9 sm:h-11 sm:w-11 rounded-2xl object-cover shadow-xl border border-white/10"
                     onError={(e) => (e.target.src = "/default-profile.png")}
                   />
                 ) : (
-                  <FaUserCircle className="w-8 h-8 text-gray-400" />
+                  <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center shadow-lg">
+                    <FaUserCircle className="w-6 h-6 sm:w-8 h-8 text-slate-900" />
+                  </div>
                 )}
               </button>
 
@@ -142,7 +150,7 @@ function Header({ toggleSidebar }) {
                       <>
                         <Link
                           to="/user-account"
-                          className="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-amber-400"
+                          className="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-orange-500"
                           onClick={() => setIsUserMenuOpen(false)}
                         >
                           Your Account
@@ -150,7 +158,7 @@ function Header({ toggleSidebar }) {
                         {currentUser.role !== "creator" && (
                           <Link
                             to="/become-creator"
-                            className="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-amber-400"
+                            className="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-orange-500"
                             onClick={() => setIsUserMenuOpen(false)}
                           >
                             Become a Creator
@@ -166,7 +174,7 @@ function Header({ toggleSidebar }) {
                     ) : (
                       <Link
                         to="/login"
-                        className="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-amber-400"
+                        className="block px-4 py-2 text-sm hover:bg-gray-700 hover:text-orange-500"
                         onClick={() => setIsUserMenuOpen(false)}
                       >
                         Sign In
@@ -203,7 +211,7 @@ function Header({ toggleSidebar }) {
               />
               <button
                 type="submit"
-                className="flex-shrink-0 bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-500 text-gray-900 font-semibold px-4 py-2 transition-all duration-300 hover:scale-[1.05] hover:brightness-110"
+                className="flex-shrink-0 bg-gradient-to-r from-orange-500 via-orange-500 to-orange-500 text-white font-semibold px-4 py-2 transition-all duration-300 hover:scale-[1.05] hover:brightness-110"
               >
                 <FaSearch className="w-5 h-5" />
               </button>

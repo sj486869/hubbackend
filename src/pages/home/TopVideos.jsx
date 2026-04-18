@@ -4,6 +4,7 @@ import { getTopVideosThunk } from "../../redux/slices/videoSlice";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FaHeart, FaEye, FaCommentDots } from "react-icons/fa";
+import VideoCard from "../video/VideoCard";
 
 const TopVideos = () => {
   const dispatch = useDispatch();
@@ -31,74 +32,25 @@ const TopVideos = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#111827] text-white px-6 py-10">
+    <div className="min-h-screen bg-[#0f172a] text-white px-3 sm:px-6 py-10">
      
 
       {sections.map(
         (section, index) =>
           section.data?.length > 0 && (
-            <div key={index} className="mb-14">
+            <div key={index} className="mb-20">
               {/* Section Title */}
-              <h2 className="text-2xl font-semibold mb-6 border-l-4 border-blue-500 pl-3">
-                {section.title}
-              </h2>
+              <div className="flex items-center gap-4 mb-8 group cursor-default">
+                <div className="w-1.5 h-10 bg-gradient-to-b from-orange-400 to-orange-600 rounded-full shadow-[0_0_15px_rgba(249,115,22,0.5)] group-hover:h-12 transition-all duration-300" />
+                <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white uppercase italic">
+                  {section.title}
+                </h2>
+              </div>
 
               {/* Video Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                 {section.data.map((video) => (
-                  <motion.div
-                    key={video._id}
-                    whileHover={{ scale: 1.04 }}
-                    transition={{ duration: 0.3 }}
-                    className="rounded-xl overflow-hidden bg-gradient-to-r from-[#0f2027] via-[#203a43] to-[#0f2027] border border-gray-800 shadow-md hover:shadow-2xl hover:border-blue-500 transition-all duration-300 cursor-pointer"
-                  >
-                    {/* Thumbnail */}
-                    <Link to={`/video/${video._id}`}>
-                      <div className="relative w-full aspect-video bg-black flex items-center justify-center">
-                        <img
-                          src={video.thumbnailUrl}
-                          alt={video.title}
-                          className="absolute inset-0 w-full h-full object-contain "
-                        />
-                      </div>
-                    </Link>
-
-                    {/* Video Info */}
-                    <div className="p-4">
-                      <h3 className="text-lg font-semibold mb-2 text-white line-clamp-2 hover:text-blue-400 transition-colors">
-                        {video.title}
-                      </h3>
-
-                      {/* Creator */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <Link to={`/creator/${video.uploadedBy?._id}`}>
-                          <img
-                            src={video.uploadedBy?.profileImage}
-                            alt={video.uploadedBy?.name}
-                            className="w-8 h-8 rounded-full border border-gray-700"
-                          />
-                        </Link>
-                        <span className="text-sm text-gray-300 truncate">
-                          {video.uploadedBy?.name}
-                        </span>
-                      </div>
-
-                      {/* Stats */}
-                      <div className="flex justify-between text-sm text-gray-400">
-                        <span className="flex items-center gap-1">
-                          <FaHeart className="text-pink-500" />{" "}
-                          {video.likesCount}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <FaEye className="text-blue-400" /> {video.views}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <FaCommentDots className="text-green-400" />{" "}
-                          {video.commentsCount}
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
+                  <VideoCard key={video._id} video={video} />
                 ))}
               </div>
             </div>
