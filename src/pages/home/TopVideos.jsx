@@ -37,7 +37,7 @@ const TopVideos = () => {
 
       {sections.map(
         (section, index) =>
-          section.data?.length > 0 && (
+          Array.isArray(section.data) && section.data.length > 0 && (
             <div key={index} className="mb-20">
               {/* Section Title */}
               <div className="flex items-center gap-4 mb-8 group cursor-default">

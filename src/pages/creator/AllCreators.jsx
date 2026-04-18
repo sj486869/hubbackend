@@ -38,33 +38,39 @@ const AllCreators = () => {
         All Creators
       </h1>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {creators.map((creator) => (
-          <Link
-            key={creator._id}
-            to={`/creator/${creator._id}`}
-            className="bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 transition-transform transform hover:scale-105 rounded-3xl shadow-lg hover:shadow-xl p-6 flex flex-col items-center text-center"
-          >
-            <div className="relative w-24 h-24 mb-4">
-              <img
-                src={
-                  creator.profileImage ||
-                  "https://cdn-icons-png.flaticon.com/512/149/149071.png"
-                }
-                alt={creator.name}
-                className="w-full h-full rounded-full object-cover ring-2 ring-green-500"
-              />
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-1">
-              {creator.name}
-            </h3>
-            <p className="text-gray-400 text-sm mb-3">
-              {creator.subscribersCount} subscribers
-            </p>
-            <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-full text-sm font-medium transition">
-              View Profile
-            </button>
-          </Link>
-        ))}
+        {Array.isArray(creators) && creators.length > 0 ? (
+          creators.map((creator) => (
+            <Link
+              key={creator._id}
+              to={`/creator/${creator._id}`}
+              className="bg-gradient-to-br from-gray-800 to-gray-900 hover:from-gray-700 hover:to-gray-800 transition-transform transform hover:scale-105 rounded-3xl shadow-lg hover:shadow-xl p-6 flex flex-col items-center text-center border border-white/5"
+            >
+              <div className="relative w-24 h-24 mb-4">
+                <img
+                  src={
+                    creator.profileImage ||
+                    "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+                  }
+                  alt={creator.name}
+                  className="w-full h-full rounded-full object-cover ring-2 ring-orange-500/50 p-1"
+                />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-1">
+                {creator.name}
+              </h3>
+              <p className="text-gray-400 text-sm mb-3">
+                {creator.subscribersCount} subscribers
+              </p>
+              <button className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-1 rounded-full text-sm font-medium transition shadow-lg shadow-orange-500/20">
+                View Profile
+              </button>
+            </Link>
+          ))
+        ) : (
+          <div className="col-span-full py-20 text-center">
+            <p className="text-gray-500 text-lg">No creators found at the moment.</p>
+          </div>
+        )}
       </div>
     </div>
   );

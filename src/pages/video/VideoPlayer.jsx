@@ -223,7 +223,9 @@ export default function VideoPlayer() {
   if (!currentVideo) return null;
 
   // Filter out the current video from recommendations
-  const relatedVideos = allVideos?.filter(v => v._id !== currentVideo._id).slice(0, 10) || [];
+  const relatedVideos = Array.isArray(allVideos) 
+    ? allVideos.filter(v => v?._id && v._id !== currentVideo._id).slice(0, 10) 
+    : [];
 
   return (
     <div className="min-h-screen pb-24 bg-[#0f172a] sm:bg-gradient-to-br sm:from-slate-800 sm:to-gray-900 py-0 sm:py-6 sm:px-4 md:px-6 lg:px-8">
