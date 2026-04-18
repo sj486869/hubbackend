@@ -15,7 +15,7 @@ export const getSubscribedCreators = (userId) =>
   api.get(`/${userId}/subscribed`);
 
 // 👉 Get all creators
-export const getCreatorsAPI = () => api.get("/");
+export const getCreatorsAPI = () => api.get("");
 
 // 👉 Get creator by ID
 export const getCreatorByIdAPI = (id) => api.get(`/${id}`);
